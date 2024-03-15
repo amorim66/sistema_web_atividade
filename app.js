@@ -2,29 +2,31 @@ const express = require('express');
 const exphbr = require('express-handlebars');
 const path = require('path');
 const app = express();
+const usuarioRoutes = require('./routes/usuarios');
+const sequelize = require('./sequelize');
 
 // Configuração do Handlebars
-app.engine('handlebars', exphbr.engine({defaultLayout: 'main'}));
+app.engine('handlebars', exphbr.engine({defaultLayout: 'main', runtimeOptions:{allowProtoPropertiesByDefault:true,
+    allowedProtoMethodsByDefault:true}}));
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-// Rota principal para o formulário de cadastro
-app.get('/', (req, res) => {
-    const title = "Página de Cadastro";
-    res.render('cadastro', { title });
-});
+// Configuração Sequelize
+sequelize.sync({ force: false })
+    .then(() => {
+        console.log('Tabelas sincronizadas com sucesso.');
+    })
+    .catch(err => {
+        console.error('Erro ao sincronizar tabelas:', err);
+    });
 
-// Rota para listar os registros
-app.get('/listar', (req, res) => {
-    // Dados de exemplo
-    const title = "Lista de Cadastros"
-    const registros = [
-        { nome: 'Gabriel Henrique', endereco: 'Av. Teste do teste 1', bairro: 'Bairro 1', cep: '00000-000', cidade: 'Cidade 1', estado: 'Estado 1' },
-        { nome: 'Maria', endereco: 'Av. Teste do teste 2', bairro: 'Bairro 2', cep: '11111-111', cidade: 'Cidade 2', estado: 'Estado 2' },
-        { nome: 'José', endereco: 'Av. Teste do teste 3', bairro: 'Bairro 3', cep: '22222-222', cidade: 'Cidade 3', estado: 'Estado 3' }
-    ];
-    res.render('listar', { registros, title});
-});
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded( { extended: false }));
+
+// Rotas
+app.use(usuarioRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
