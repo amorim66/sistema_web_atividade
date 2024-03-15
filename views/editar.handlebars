@@ -8,38 +8,39 @@
 <body>
     <div class="container">
         <h1>Cadastro</h1>
-        <form action="/usuarios" method="post">
+        <form action="/usuarios/{{usuario.id}}" method="POST">
+            <input type="hidden" name="_method" value="PUT">
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" value="{{usuario.nome}}">
             </div>
             <div class="form-group">
                 <label for="endereco">Endereço</label>
-                <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Digite seu endereço">
+                <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Digite seu endereço" value="{{usuario.endereco}}">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="bairro">Bairro</label>
-                    <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Digite seu bairro">
+                    <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Digite seu bairro" value="{{usuario.bairro}}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="cep">CEP</label>
-                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite seu CEP">
+                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite seu CEP" value="{{usuario.cep}}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="cidade">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Digite sua cidade">
+                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Digite sua cidade" value="{{usuario.cidade}}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="estado">Estado</label>
-                    <input type="text" class="form-control" id="estado" name="estado" placeholder="Digite seu estado">
+                    <input type="text" class="form-control" id="estado" name="estado" placeholder="Digite seu estado" value="{{usuario.estado}}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="observacoes">Observações</label>
-                <textarea class="form-control" id="observacoes" name="observacoes" rows="3" placeholder="Digite suas observações"></textarea>
+                <textarea class="form-control" id="observacoes" name="observacoes" rows="3" placeholder="Digite suas observações" value="{{usuario.observacao}}"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
